@@ -35,10 +35,30 @@ public class GeoFunc
         return true;
     }
 
-    /*bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
+    bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
     {
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
         Vector3 AB = seg.pt2 - seg.pt1;
-    }*/
+        Vector3 cA = seg.pt1 - sph.centre;
+        float a, b, c, t, delta;
+        a = Vector3.Dot(AB, AB) * Vector3.Dot(AB, AB);
+        b = 2 * Vector3.Dot(cA, AB);
+        c = Vector3.Dot(cA, cA) * Vector3.Dot(cA, cA) - sph.radius * sph.radius;
+        delta = b * b - 4 * a * c;
+        if (delta < 0)
+        {
+            return false;
+        }
+        else if(Mathf.Approximately(delta, 0))
+        {
+            t = -b / (2 * a);
+        }
+        else
+        {
+            t = (-b + Mathf.Sqrt(delta)) / (2 * a);
+        }
+        interPt = seg.pt1 + t * AB;
+        return true;
+    }
 }
