@@ -61,4 +61,11 @@ public class GeoFunc
         interPt = seg.pt1 + t * AB;
         return true;
     }
+
+    bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
+    {
+        interPr = Vector3.zero; // A definir
+        interNormal = Vector3.zero; // A definir
+        return true;
+    }
 }
