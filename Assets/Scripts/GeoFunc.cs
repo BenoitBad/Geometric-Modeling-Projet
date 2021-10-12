@@ -40,7 +40,7 @@ public class GeoFunc
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
         Vector3 AB = seg.pt2 - seg.pt1;
-        Vector3 cA = seg.pt1 - sph.centre;
+        Vector3 cA = seg.pt1 - sph.center;
         float a, b, c, t, delta;
         a = Vector3.Dot(AB, AB) * Vector3.Dot(AB, AB);
         b = 2 * Vector3.Dot(cA, AB);

@@ -7,9 +7,15 @@ public struct Plane
     public Vector3 normal;
     public float d;
 
-    Plane(Vector3 seg1, Vector3 seg2)
+    public Plane(Vector3 normal, float d)
     {
-        normal = Vector3.one; // Remplacer par produit vectoriel de seg1, seg2
-        d = 0; // Replacer par ???
+        this.normal = normal;
+        this.d = d;
+    }
+
+    public Plane(Vector3 pt, Vector3 v1, Vector3 v2)
+    {
+        normal = Vector3.Cross(v1, v2).normalized; // Produit vectoriel de deux vecteurs = normale au plan créé par ces vecteurs
+        d = Vector3.Dot(pt, normal); // Distance à l'origine de la projection du point par rapport à la normale
     }
 }
