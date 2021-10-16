@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VisualizationManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class VisualizationManager : MonoBehaviour
 
     void Start()
     {
-        
+        loadInterSegmentPlane();
     }
 
     void Update()
@@ -19,6 +20,6 @@ public class VisualizationManager : MonoBehaviour
 
     void loadInterSegmentPlane()
     {
-
+        SceneManager.LoadScene("InterSegmentPlane", LoadSceneMode.Additive);
     }
 }

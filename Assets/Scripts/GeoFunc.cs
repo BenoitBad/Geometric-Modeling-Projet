@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GeoFunc
 {
-    bool InterSegmentPlane(Segment seg, Plane plane, out Vector3 interPt , out Vector3 interNormal)
+    public static bool InterSegmentPlane(Segment seg, Plane plane, out Vector3 interPt , out Vector3 interNormal)
     {
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
