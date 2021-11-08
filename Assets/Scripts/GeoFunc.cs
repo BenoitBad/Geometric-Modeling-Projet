@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GeoFunc
 {
-    bool InterSegmentPlane(Segment seg, Plane plane, out Vector3 interPt , out Vector3 interNormal)
+    public static bool InterSegmentPlane(Segment seg, Plane plane, out Vector3 interPt , out Vector3 interNormal)
     {
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
@@ -35,12 +35,12 @@ public class GeoFunc
         return true;
     }
 
-    bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
+    public static bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
     {
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
         Vector3 AB = seg.pt2 - seg.pt1;
-        Vector3 cA = seg.pt1 - sph.centre;
+        Vector3 cA = seg.pt1 - sph.center;
         float a, b, c, t, delta;
         a = Vector3.Dot(AB, AB) * Vector3.Dot(AB, AB);
         b = 2 * Vector3.Dot(cA, AB);
@@ -62,7 +62,7 @@ public class GeoFunc
         return true;
     }
 
-    bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
+    public static bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
     {
         interPr = Vector3.zero; // A definir
         interNormal = Vector3.zero; // A definir
