@@ -35,7 +35,7 @@ public class GeoFunc
         return true;
     }
 
-    bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
+    public static bool InterSegmentSphere(Segment seg, Sphere sph, out Vector3 interPt, out Vector3 interNormal)
     {
         interPt = Vector3.zero;
         interNormal = Vector3.zero;
@@ -62,7 +62,7 @@ public class GeoFunc
         return true;
     }
 
-    bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
+    public static bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
     {
         interPr = Vector3.zero; // A definir
         interNormal = Vector3.zero; // A definir

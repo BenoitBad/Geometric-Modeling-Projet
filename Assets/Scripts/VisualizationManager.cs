@@ -20,6 +20,6 @@ public class VisualizationManager : MonoBehaviour
 
     void loadInterSegmentPlane()
     {
-        SceneManager.LoadScene("InterSegmentPlane", LoadSceneMode.Additive);
+        SceneManager.LoadScene("InterSegmentSphere", LoadSceneMode.Additive);
     }
 }

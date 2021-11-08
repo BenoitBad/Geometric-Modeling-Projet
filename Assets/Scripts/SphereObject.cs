@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SphereObject : MonoBehaviour
 {
-    Sphere s;
+    public Sphere s;
 
     // Start is called before the first frame update
     void Awake()

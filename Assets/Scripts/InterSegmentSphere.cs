@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class InterSegmentPlane : MonoBehaviour
+public class InterSegmentSphere : MonoBehaviour
 {
     [SerializeField] GameObject segmentObject;
-    [SerializeField] GameObject planeObject;
+    [SerializeField] GameObject sphereObject;
     [SerializeField] GameObject intersection;
 
     // Update is called once per frame
@@ -15,7 +15,7 @@ public class InterSegmentPlane : MonoBehaviour
         {
             intersection.SetActive(true);
             intersection.transform.position = intersectionPos;
-            Debug.Log(intersectionPos);
+            Debug.Log(intersectionPos.x + " " + intersectionPos.y + " " + intersectionPos.z);
         } else
         {
             intersection.SetActive(false);
@@ -25,10 +25,10 @@ public class InterSegmentPlane : MonoBehaviour
     Vector3 checkIntersection()
     {
         Segment segment = segmentObject.GetComponent<SegmentObject>().seg;
-        Plane plane = planeObject.GetComponent<PlaneObject>().p;
+        Sphere sphere = sphereObject.GetComponent<SphereObject>().s;
         Vector3 interPt;
         Vector3 interNormal;
-        GeoFunc.InterSegmentPlane(segment, plane, out interPt, out interNormal);
+        GeoFunc.InterSegmentSphere(segment, sphere, out interPt, out interNormal);
         return interPt;
     }
 }
