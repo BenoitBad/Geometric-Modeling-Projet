@@ -70,6 +70,30 @@ public class GeoFunc
     {
         interPr = Vector3.zero; // A definir
         interNormal = Vector3.zero; // A definir
+        Vector3 AB = seg.pt2 - seg.pt1;
+        Vector3 PA = seg.pt1 - cyl.pt1;
+        Vector3 PQ = cyl.pt2 - cyl.pt1;
+        Vector3 PQunit = PQ.normalized;
+        float a, b, c, t1, /*t2,*/ delta;
+        a = Vector3.Dot(AB, AB) - Mathf.Pow(Vector3.Dot(AB, PQunit), 2);
+        b = 2 * (Vector3.Dot(PA, AB) - Vector3.Dot(AB, PQunit) * Vector3.Dot(PA, PQunit));
+        c = Vector3.Dot(PA, PA) - Mathf.Pow(Vector3.Dot(PA, PQunit), 2) - cyl.radius * cyl.radius;
+        delta = b * b - 4 * a * c;
+        if (delta < 0)
+        {
+            return false;
+        }
+        else if (Mathf.Approximately(delta, 0))
+        {
+            t1 = -b / (2 * a);
+        }
+        else
+        {
+            t1 = (-b + Mathf.Sqrt(delta)) / (2 * a);
+            //t2 = (-b - Mathf.Sqrt(delta)) / (2 * a);
+            //interPr = seg.pt1 + t2 * AB;
+        }
+        interPr = seg.pt1 + t1 * AB;
         return true;
     }
 }
