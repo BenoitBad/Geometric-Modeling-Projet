@@ -66,15 +66,17 @@ public class GeoFunc
         return true;
     }
 
-    public static bool InterSegCylInf(Segment seg, Cylinder cyl, out Vector3 interPr, out Vector3 interNormal)
+    public static bool InterSegmentCylInf(Segment seg, Cylinder cyl, out Vector3 interPt1, out Vector3 interPt2, out Vector3 interNormal1, out Vector3 interNormal2)
     {
-        interPr = Vector3.zero; // A definir
-        interNormal = Vector3.zero; // A definir
+        interPt1 = Vector3.zero; // A definir
+        interPt2 = Vector3.zero; // A definir
+        interNormal1 = Vector3.zero; // A definir
+        interNormal2 = Vector3.zero; // A definir
         Vector3 AB = seg.pt2 - seg.pt1;
         Vector3 PA = seg.pt1 - cyl.pt1;
         Vector3 PQ = cyl.pt2 - cyl.pt1;
         Vector3 PQunit = PQ.normalized;
-        float a, b, c, t1, /*t2,*/ delta;
+        float a, b, c, t1, t2, delta;
         a = Vector3.Dot(AB, AB) - Mathf.Pow(Vector3.Dot(AB, PQunit), 2);
         b = 2 * (Vector3.Dot(PA, AB) - Vector3.Dot(AB, PQunit) * Vector3.Dot(PA, PQunit));
         c = Vector3.Dot(PA, PA) - Mathf.Pow(Vector3.Dot(PA, PQunit), 2) - cyl.radius * cyl.radius;
@@ -90,10 +92,10 @@ public class GeoFunc
         else
         {
             t1 = (-b + Mathf.Sqrt(delta)) / (2 * a);
-            //t2 = (-b - Mathf.Sqrt(delta)) / (2 * a);
-            //interPr = seg.pt1 + t2 * AB;
+            t2 = (-b - Mathf.Sqrt(delta)) / (2 * a);
+            interPt2 = seg.pt1 + t2 * AB;
         }
-        interPr = seg.pt1 + t1 * AB;
+        interPt1 = seg.pt1 + t1 * AB;
         return true;
     }
 }
