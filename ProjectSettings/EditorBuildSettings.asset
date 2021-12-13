@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InterSegmentSphere.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/InterSegmentCylInf.unity
+    guid: eb780a1407c47404885d87dcaca5d2ad
+  - enabled: 1
+    path: Assets/Scenes/InterSegmentPlane.unity
+    guid: d276f0ca50b11f14f8de301c0671a984
   m_configObjects: {}

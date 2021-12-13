@@ -7,21 +7,31 @@ public class VisualizationManager : MonoBehaviour
 {
     // S'occupe de charger les scenes de visualisation (en additif), récupère les objets et lance une coroutine pour l'animation.
     // Voir si besoin d'un menuManager
+    private int scene = 0;
 
-    void Start()
+    public void loadInterSegmentPlane()
     {
-        loadInterSegmentPlane();
+        deloadScene(scene);
+        SceneManager.LoadScene("InterSegmentPlane", LoadSceneMode.Additive);
+        scene = 3;
     }
-
-    void Update()
+    public void loadInterSegmentCylInf()
     {
-        
-    }
-
-    void loadInterSegmentPlane()
-    {
-        //SceneManager.LoadScene("InterSegmentPlane", LoadSceneMode.Additive);
-        //SceneManager.LoadScene("InterSegmentSphere", LoadSceneMode.Additive);
+        deloadScene(scene);
         SceneManager.LoadScene("InterSegmentCylInf", LoadSceneMode.Additive);
+        scene = 2;
+    }
+
+    public void loadInterSegmentSphere()
+    {
+        deloadScene(scene);
+        SceneManager.LoadScene("InterSegmentSphere", LoadSceneMode.Additive);
+        scene = 1;
+    }
+
+    private void deloadScene(int idScene)
+    {
+        if (scene != 0)
+            SceneManager.UnloadSceneAsync(scene);
     }
 }
