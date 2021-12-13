@@ -162,28 +162,30 @@ public class CatmullClark
             Vertex fpVertex = new Vertex(input.m_Vertices.Count, facePoint);
             input.m_Vertices.Add(fpVertex);
 
-            HalfEdge firstHe = f.side.nextEdge.nextEdge; // On sauvegarde le premier halfEdge de la première face à générer pour boucler dessus
+            HalfEdge firstHe = f.side.nextEdge; // On sauvegarde le premier halfEdge de la première face à générer pour boucler dessus
+            HalfEdge heNext = firstHe.nextEdge.nextEdge; // On garde en mémoire le premier edge de la prochaine face avant de changer les nextEdge
             // Réorganisation de la face actuelle
+            f.side = firstHe;
             HalfEdge prevEdge = new HalfEdge(idHalfEdge++, f, fpVertex);
             fpVertex.adjacentEdge.Add(prevEdge);
-            HalfEdge nextEdge = new HalfEdge(idHalfEdge++, f, f.side.nextEdge.nextEdge.sourceVertex);
+            HalfEdge nextEdge = new HalfEdge(idHalfEdge++, f, firstHe.nextEdge.nextEdge.sourceVertex);
             input.m_Edges.Add(prevEdge);
             input.m_Edges.Add(nextEdge);
 
             prevEdge.prevEdge = nextEdge;
-            prevEdge.nextEdge = f.side;
+            prevEdge.nextEdge = firstHe;
 
-            nextEdge.prevEdge = f.side.nextEdge;
+            nextEdge.prevEdge = firstHe.nextEdge;
             nextEdge.nextEdge = prevEdge;
 
-            f.side.prevEdge = prevEdge;
-            f.side.nextEdge.nextEdge = nextEdge;
+            firstHe.prevEdge = prevEdge;
+            firstHe.nextEdge.nextEdge = nextEdge;
 
             // Création de nouvelles faces
             int countNewFace = 0;
-            HalfEdge heNext = firstHe;
             do
             {
+                firstHe = heNext; // Prends le premier Edge de la nouvelle face sauvegardé auparavant
                 heNext = firstHe.nextEdge.nextEdge; // Sauvegarde le premier edge de la prochaine face
                 // Crée la nouvelle face et l'assigne aux edges existants
                 Face newFace = new Face(idFace, firstHe);
@@ -194,19 +196,19 @@ public class CatmullClark
                 // Crée les 2 nouveaux edges reliant au facePoint
                 prevEdge = new HalfEdge(idHalfEdge++, newFace, fpVertex);
                 fpVertex.adjacentEdge.Add(prevEdge);
-                nextEdge = new HalfEdge(idHalfEdge++, newFace, newFace.side.nextEdge.nextEdge.sourceVertex);
+                nextEdge = new HalfEdge(idHalfEdge++, newFace, firstHe.nextEdge.nextEdge.sourceVertex);
                 input.m_Edges.Add(prevEdge);
                 input.m_Edges.Add(nextEdge);
 
                 // Fait les liaisons entre les edges existants et les nouveaux edges
                 prevEdge.prevEdge = nextEdge;
-                prevEdge.nextEdge = newFace.side;
+                prevEdge.nextEdge = firstHe;
 
-                nextEdge.prevEdge = newFace.side.nextEdge;
+                nextEdge.prevEdge = firstHe.nextEdge;
                 nextEdge.nextEdge = prevEdge;
 
-                newFace.side.prevEdge = prevEdge;
-                newFace.side.nextEdge.nextEdge = nextEdge;
+                firstHe.prevEdge = prevEdge;
+                firstHe.nextEdge.nextEdge = nextEdge;
 
                 if(countNewFace == 0) // Si première face générée twinEdge de notre prevEdge est le nextEdge de la face de base
                 {
@@ -228,7 +230,6 @@ public class CatmullClark
 
                 countNewFace++;
                 idFace++;
-                firstHe = heNext;
             }
             while (f.side != heNext);
         }
