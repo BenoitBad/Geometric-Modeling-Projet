@@ -9,6 +9,12 @@ public class VisualizationManager : MonoBehaviour
     // Voir si besoin d'un menuManager
     private int scene = 0;
 
+    public void loadCatmullclark()
+    {
+        deloadScene(scene);
+        SceneManager.LoadScene("CatmullClark", LoadSceneMode.Additive);
+        scene = 4;
+    }
     public void loadInterSegmentPlane()
     {
         deloadScene(scene);

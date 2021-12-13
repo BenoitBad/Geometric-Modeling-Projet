@@ -44,6 +44,7 @@ public class HalfEdgeComponent : MonoBehaviour
             }
         );*/
         m_Mesh = meshGenerator.createCube(2);
+        m_Mf.sharedMesh = m_Mesh;
         /*m_Mesh = meshGenerator.WrapNormalizedPlaneQuads(2, 2,
             (kX, kZ) => {
                 return new Vector3(kX, 0, kZ);
@@ -59,7 +60,7 @@ public class HalfEdgeComponent : MonoBehaviour
         {
             mCatmull.CatmullClarkAlgorithm(m_HalfEdgeRepresentation);
             m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
-            Debug.Log(MeshGenerator.ExportMeshCSV(m_Mesh));
+            //Debug.Log(MeshGenerator.ExportMeshCSV(m_Mesh));
             m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
         }
         m_Mf.sharedMesh = m_Mesh;
