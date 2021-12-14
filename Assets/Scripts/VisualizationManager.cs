@@ -34,6 +34,12 @@ public class VisualizationManager : MonoBehaviour
         SceneManager.LoadScene("InterSegmentSphere", LoadSceneMode.Additive);
         scene = 1;
     }
+    public void loadDistancePoint()
+    {
+        deloadScene(scene);
+        SceneManager.LoadScene("CatmullClark", LoadSceneMode.Additive);
+        scene = 5;
+    }
 
     private void deloadScene(int idScene)
     {

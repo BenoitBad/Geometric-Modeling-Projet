@@ -98,4 +98,21 @@ public class GeoFunc
         interPt1 = seg.pt1 + t1 * AB;
         return true;
     }
+
+    public static float DistancePointDroite(Vector3 point, Segment droite)
+    {
+        // On représente la droite par un segment infini (Unity ne permet pas de faire une droite infinie)
+        float distance = 3;
+
+
+        return distance;
+    }
+
+    public static float DistancePointPlane(Vector3 point, Plane plan)
+    {
+        float distance = 2;
+
+
+        return distance;
+    }
 }
