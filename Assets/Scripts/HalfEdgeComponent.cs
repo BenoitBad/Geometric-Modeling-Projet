@@ -21,17 +21,19 @@ public class HalfEdgeComponent : MonoBehaviour
     [SerializeField] bool m_DisplayFacePoints;
     [SerializeField] int m_NMaxFacePoints;
 
+    private MeshFilter m_Mf;
+    private Mesh m_BaseMesh;
     private Mesh m_Mesh;
 
     public HalfEdgeRepresentation m_HalfEdgeRepresentation;
-
-    CatmullClark mCatmull;
+    public CatmullClark m_Catmull;
+    private int m_CatmullState;
 
     // Start is called before the first frame update
     void Start()
     {
         MeshGenerator meshGenerator = new MeshGenerator();
-        MeshFilter m_Mf = GetComponent<MeshFilter>();
+        m_Mf = GetComponent<MeshFilter>();
 
         //m_Mesh = meshGenerator.CreateRegularPolygon(5, 2f);
         /*m_Mesh = meshGenerator.WrapNormalizedPlaneQuads(20, 10,
@@ -43,8 +45,11 @@ public class HalfEdgeComponent : MonoBehaviour
                 return new Vector3(rho * Mathf.Cos(theta) * Mathf.Sin(phi), rho * Mathf.Cos(phi), rho * Mathf.Sin(theta) * Mathf.Sin(phi));
             }
         );*/
-        m_Mesh = meshGenerator.createCube(2);
-        m_Mf.sharedMesh = m_Mesh;
+
+        m_BaseMesh = m_Mf.sharedMesh;
+        m_Mesh = Mesh.Instantiate(m_BaseMesh);
+        m_Mf.sharedMesh = m_BaseMesh;
+
         /*m_Mesh = meshGenerator.WrapNormalizedPlaneQuads(2, 2,
             (kX, kZ) => {
                 return new Vector3(kX, 0, kZ);
@@ -53,16 +58,35 @@ public class HalfEdgeComponent : MonoBehaviour
 
         m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
         gameObject.AddComponent<MeshCollider>();
-        mCatmull = new CatmullClark();
+        m_Catmull = new CatmullClark();
+        m_CatmullState = 0;
 
-        // Boucle des itérations de Catmull Clark
-        for(int i = 0; i < m_nbIterationCatmull; i++)
+        //// Boucle des itérations de Catmull Clark
+        //for(int i = 0; i < m_nbIterationCatmull; i++)
+        //{
+        //    m_Catmull.CatmullClarkAlgorithm(m_HalfEdgeRepresentation);
+        //    m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
+        //    //Debug.Log(MeshGenerator.ExportMeshCSV(m_Mesh));
+        //    m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
+        //}
+        //m_Mf.sharedMesh = m_Mesh;
+    }
+
+    public void IterateCatmull(int nbIteration)
+    {
+        if(m_CatmullState > nbIteration)
         {
-            mCatmull.CatmullClarkAlgorithm(m_HalfEdgeRepresentation);
-            m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
-            //Debug.Log(MeshGenerator.ExportMeshCSV(m_Mesh));
-            m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
+            m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_BaseMesh);
+            m_CatmullState = 0;
         }
+        while(m_CatmullState < nbIteration)
+        {
+            m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
+            m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
+            m_Catmull.CatmullClarkAlgorithm(m_HalfEdgeRepresentation);
+            m_CatmullState++;
+        }
+        m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
         m_Mf.sharedMesh = m_Mesh;
     }
 
@@ -92,8 +116,8 @@ public class HalfEdgeComponent : MonoBehaviour
                 {
                     if (iHe > m_NMaxHalfEdges - 1) return; // Stop si on a dessiné plus que défini par l'utilisateur
 
-                    Vector3 sourceVertexRelative = he.sourceVertex.vertex + transform.position;
-                    Vector3 nextVertexRelative = he.nextEdge.sourceVertex.vertex + transform.position;
+                    Vector3 sourceVertexRelative = transform.rotation * he.sourceVertex.vertex + transform.position;
+                    Vector3 nextVertexRelative = transform.rotation * he.nextEdge.sourceVertex.vertex + transform.position;
 
                     Vector3 direction = nextVertexRelative - sourceVertexRelative;
                     Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -120,17 +144,17 @@ public class HalfEdgeComponent : MonoBehaviour
 
     private void GizmosCatmullClark()
     {
-        if(mCatmull != null)
+        if(m_Catmull != null)
         {
             // EdgePoints
             if (m_DisplayEdgePoints)
             {
                 int nbEdgePoints = 0;
-                foreach (EdgePoint EdP in mCatmull.EdgePoints)
+                foreach (EdgePoint EdP in m_Catmull.EdgePoints)
                 {
                     if (nbEdgePoints > m_NMaxEdgePoints) break;
                     Gizmos.color = Color.magenta;
-                    Gizmos.DrawSphere(EdP.pt, .02f);
+                    Gizmos.DrawSphere(transform.rotation * EdP.pt + transform.position, .02f);
                     nbEdgePoints++;
                 }
             }
@@ -139,11 +163,11 @@ public class HalfEdgeComponent : MonoBehaviour
             if (m_DisplayFacePoints)
             {
                 int nbFacePoints = 0;
-                foreach (Vector3 FaP in mCatmull.facePoints)
+                foreach (Vector3 FaP in m_Catmull.facePoints)
                 {
                     if (nbFacePoints > m_NMaxFacePoints) break;
                     Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(FaP, .01f);
+                    Gizmos.DrawSphere(transform.rotation * FaP + transform.position, .01f);
                     nbFacePoints++;
                 }
             }
@@ -152,11 +176,11 @@ public class HalfEdgeComponent : MonoBehaviour
             if (m_DisplayMidPoints)
             {
                 int nbMidPoints = 0;
-                foreach (Vector3 MidP in mCatmull.midPoints)
+                foreach (Vector3 MidP in m_Catmull.midPoints)
                 {
                     if (nbMidPoints > m_NMaxMidPoints) break;
                     Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(MidP, .01f);
+                    Gizmos.DrawSphere(transform.rotation * MidP + transform.position, .01f);
                     nbMidPoints++;
                 }
             }

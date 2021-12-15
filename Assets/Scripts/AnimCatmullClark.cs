@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AnimCatmullClark : MonoBehaviour
 {
-    [SerializeField] GameObject iteration_0;
-    [SerializeField] GameObject iteration_1;
-    [SerializeField] GameObject iteration_2;
-    int state = 1;
+    [SerializeField] List<HalfEdgeComponent> HeMesh;
+    [SerializeField] int nbIteration;
 
-    bool animStarted = false;
+    private int state;
+    private bool animStarted = false;
+
+    //private List<HalfEdgeComponent> mHalfEdgeComponents;
+
+    private void Start()
+    {
+        state = 1;
+    }
 
     void Update()
     {
@@ -25,28 +31,13 @@ public class AnimCatmullClark : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(2.0f);
-            switch (state)
+            foreach(HalfEdgeComponent heComp in HeMesh)
             {
-                case 0:
-                    iteration_2.SetActive(false);
-                    iteration_0.SetActive(true);
-                    break;
-                case 1:
-                    iteration_0.SetActive(false);
-                    iteration_1.SetActive(true);
-                    break;
-                case 2:
-                    iteration_1.SetActive(false);
-                    iteration_2.SetActive(true);
-                    break;
+                heComp.IterateCatmull(state);
             }
-            if(state < 2)
-            {
-                state++;
-            } else
-            {
-                state = 0;
-            }
+            state++;
+            Debug.Log("State: " + state);
+            if (state >= nbIteration) state = 0;
         }
     }
 }

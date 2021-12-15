@@ -352,73 +352,35 @@ public class MeshGenerator
         return newMesh;
     }
 
-    public Mesh createCube()
+    public Mesh createChips(int size)
     {
         Mesh newMesh = new Mesh();
-        int n = 2;
-        Vector3[] vertices = new Vector3[n * n * n];
-        for(int i=0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                for (int k = 0; k < n; j++)
-                    vertices[i*n*n + k*n + j] = new Vector3((float)i, (float)k, (float)j);
-            }
-        }
-
-        int nbQuads = 4;
-        int[] quads = new int[nbQuads * 4];
-        quads[0] = 0;
-        quads[1] = 2;
-        quads[2] = n * 4 + 6;
-        quads[3] = n * 4 + 0;
-
-        quads[4] = 2;
-        quads[5] = 3;
-        quads[6] = n * 4 + 7;
-        quads[7] = n * 4 + 6;
-
-        quads[8] = 3;
-        quads[9] = 8;
-        quads[10] = n * 5 + 8;
-        quads[11] = n * 4 + 7;
-
-        newMesh.vertices = vertices;
-        newMesh.SetIndices(quads, MeshTopology.Quads, 0);
-        newMesh.RecalculateBounds();
-        newMesh.RecalculateNormals();
-        return newMesh;
-    }
-
-    public Mesh createChips()
-    {
-        Mesh newMesh = new Mesh();
-        int n = 4;
-        Vector3[] vertices = new Vector3[n * n];
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                vertices[i * n + j] = new Vector3((float)i, 0, (float)j);
-            }
-        }
+        Vector3[] vertices = new Vector3[8];
+        vertices[0] = Vector3.zero;
+        vertices[1] = new Vector3(size, 0, 0);
+        vertices[2] = new Vector3(size, 0, size);
+        vertices[3] = new Vector3(0, 0, size);
+        vertices[4] = new Vector3(0, size, 0);
+        vertices[5] = new Vector3(size, size, 0);
+        vertices[6] = new Vector3(size, size, size);
+        vertices[7] = new Vector3(0, size, size);
 
         int nbQuads = 3;
         int[] quads = new int[nbQuads * 4];
         quads[0] = 0;
-        quads[1] = 2;
-        quads[2] = n * 4 + 6;
-        quads[3] = n * 4 + 0;
+        quads[1] = 1;
+        quads[2] = 2;
+        quads[3] = 3;
 
-        quads[4] = 2;
-        quads[5] = 3;
-        quads[6] = n * 4 + 7;
-        quads[7] = n * 4 + 6;
+        quads[4] = 4;
+        quads[5] = 5;
+        quads[6] = 1;
+        quads[7] = 0;
 
-        quads[8] = 3;
-        quads[9] = 8;
-        quads[10] = n * 5 + 8;
-        quads[11] = n * 4 + 7;
+        quads[8] = 7;
+        quads[9] = 6;
+        quads[10] = 5;
+        quads[11] = 4;
 
         newMesh.vertices = vertices;
         newMesh.SetIndices(quads, MeshTopology.Quads, 0);
