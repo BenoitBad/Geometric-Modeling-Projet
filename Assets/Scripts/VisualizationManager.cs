@@ -5,44 +5,44 @@ using UnityEngine.SceneManagement;
 
 public class VisualizationManager : MonoBehaviour
 {
-    // S'occupe de charger les scenes de visualisation (en additif), récupère les objets et lance une coroutine pour l'animation.
-    private int scene = 0;
+    // S'occupe de charger les scenes de visualisation (en additif)
+    private string loadedScene = "Menu";
 
     public void loadCatmullclark()
     {
-        deloadScene(scene);
+        deloadScene();
         SceneManager.LoadScene("CatmullClark", LoadSceneMode.Additive);
-        scene = 4;
+        loadedScene = "CatmullClark";
     }
     public void loadInterSegmentPlane()
     {
-        deloadScene(scene);
+        deloadScene();
         SceneManager.LoadScene("InterSegmentPlane", LoadSceneMode.Additive);
-        scene = 3;
+        loadedScene = "InterSegmentPlane";
     }
     public void loadInterSegmentCylInf()
     {
-        deloadScene(scene);
+        deloadScene();
         SceneManager.LoadScene("InterSegmentCylInf", LoadSceneMode.Additive);
-        scene = 2;
+        loadedScene = "InterSegmentCylInf";
     }
 
     public void loadInterSegmentSphere()
     {
-        deloadScene(scene);
+        deloadScene();
         SceneManager.LoadScene("InterSegmentSphere", LoadSceneMode.Additive);
-        scene = 1;
+        loadedScene = "InterSegmentSphere";
     }
     public void loadDistancePoint()
     {
-        deloadScene(scene);
-        SceneManager.LoadScene("CatmullClark", LoadSceneMode.Additive);
-        scene = 5;
+        deloadScene();
+        SceneManager.LoadScene("DistancePoint", LoadSceneMode.Additive);
+        loadedScene = "DistancePoint";
     }
 
-    private void deloadScene(int idScene)
+    private void deloadScene()
     {
-        if (scene != 0)
-            SceneManager.UnloadSceneAsync(scene);
+        if (loadedScene != "Menu")
+            SceneManager.UnloadSceneAsync(loadedScene);
     }
 }

@@ -102,17 +102,16 @@ public class GeoFunc
     public static float DistancePointDroite(Vector3 point, Segment droite)
     {
         // On représente la droite par un segment infini (Unity ne permet pas de faire une droite infinie)
-        float distance = 3;
-
+        Vector3 BA = point - droite.pt1;
+        Vector3 droiteDirecteur = droite.pt1 - droite.pt2;
+        float distance = Vector3.Cross(BA, droiteDirecteur).magnitude / droiteDirecteur.magnitude;
 
         return distance;
     }
 
     public static float DistancePointPlane(Vector3 point, Plane plan)
     {
-        float distance = 2;
-
-
+        float distance = plan.d - Vector3.Dot(point, plan.normal);
         return distance;
     }
 }

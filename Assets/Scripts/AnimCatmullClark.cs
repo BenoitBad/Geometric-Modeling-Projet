@@ -10,8 +10,6 @@ public class AnimCatmullClark : MonoBehaviour
     private int state;
     private bool animStarted = false;
 
-    //private List<HalfEdgeComponent> mHalfEdgeComponents;
-
     private void Start()
     {
         state = 1;
