@@ -68,10 +68,10 @@ public class GeoFunc
 
     public static bool InterSegmentCylInf(Segment seg, Cylinder cyl, out Vector3 interPt1, out Vector3 interPt2, out Vector3 interNormal1, out Vector3 interNormal2)
     {
-        interPt1 = Vector3.zero; // A definir
-        interPt2 = Vector3.zero; // A definir
-        interNormal1 = Vector3.zero; // A definir
-        interNormal2 = Vector3.zero; // A definir
+        interPt1 = Vector3.zero;
+        interPt2 = Vector3.zero;
+        interNormal1 = Vector3.zero;
+        interNormal2 = Vector3.zero;
         Vector3 AB = seg.pt2 - seg.pt1;
         Vector3 PA = seg.pt1 - cyl.pt1;
         Vector3 PQ = cyl.pt2 - cyl.pt1;

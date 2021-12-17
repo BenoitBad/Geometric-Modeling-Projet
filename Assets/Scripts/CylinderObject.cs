@@ -6,7 +6,6 @@ public class CylinderObject : MonoBehaviour
 {
     public Cylinder c;
 
-    // Start is called before the first frame update
     void Awake()
     {
         c = new Cylinder();

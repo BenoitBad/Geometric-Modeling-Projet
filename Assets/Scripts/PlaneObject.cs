@@ -6,7 +6,6 @@ public class PlaneObject : MonoBehaviour
 {
     public Plane p;
 
-    // Start is called before the first frame update
     void Awake()
     {
         Vector3 normal = transform.up;
@@ -17,7 +16,7 @@ public class PlaneObject : MonoBehaviour
     void Update()
     {
         p.normal = transform.up;
-        p.d = Vector3.Dot(transform.position, p.normal); // AHAH CA FAIT PD
+        p.d = Vector3.Dot(transform.position, p.normal);
         //Debug.Log("Normale: " + p.normal + " d (distance signée): " + p.d);
     }
 }

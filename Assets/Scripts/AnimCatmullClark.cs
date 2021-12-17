@@ -37,7 +37,7 @@ public class AnimCatmullClark : MonoBehaviour
             }
             state++;
             Debug.Log("State: " + state);
-            if (state >= nbIteration) state = 0;
+            if (state >= nbIteration+1) state = 0;
         }
     }
 }

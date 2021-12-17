@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class HalfEdgeComponent : MonoBehaviour
 {
-    [Header("Catmull Clark")]
-    [SerializeField] int m_nbIterationCatmull;
-
     [Header("HalfEdges")]
     [SerializeField] bool m_DisplayHalfEdges;
     [SerializeField] bool m_DisplayHalfEdgeNumber;
@@ -33,43 +30,16 @@ public class HalfEdgeComponent : MonoBehaviour
     void Start()
     {
         MeshGenerator meshGenerator = new MeshGenerator();
-        m_Mf = GetComponent<MeshFilter>();
-
-        //m_Mesh = meshGenerator.CreateRegularPolygon(5, 2f);
-        /*m_Mesh = meshGenerator.WrapNormalizedPlaneQuads(20, 10,
-            (kX, kZ) => {
-                //Sphere
-                float theta = kX * 2 * Mathf.PI;
-                float phi = (1 - kZ) * Mathf.PI;
-                float rho = 2;
-                return new Vector3(rho * Mathf.Cos(theta) * Mathf.Sin(phi), rho * Mathf.Cos(phi), rho * Mathf.Sin(theta) * Mathf.Sin(phi));
-            }
-        );*/
+        m_Mf = GetComponentInChildren<MeshFilter>();
 
         m_BaseMesh = m_Mf.sharedMesh;
         m_Mesh = Mesh.Instantiate(m_BaseMesh);
         m_Mf.sharedMesh = m_BaseMesh;
 
-        /*m_Mesh = meshGenerator.WrapNormalizedPlaneQuads(2, 2,
-            (kX, kZ) => {
-                return new Vector3(kX, 0, kZ);
-            }
-        );*/
-
         m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
         gameObject.AddComponent<MeshCollider>();
         m_Catmull = new CatmullClark();
         m_CatmullState = 0;
-
-        //// Boucle des itérations de Catmull Clark
-        //for(int i = 0; i < m_nbIterationCatmull; i++)
-        //{
-        //    m_Catmull.CatmullClarkAlgorithm(m_HalfEdgeRepresentation);
-        //    m_Mesh = m_HalfEdgeRepresentation.getMeshVertexFaces();
-        //    //Debug.Log(MeshGenerator.ExportMeshCSV(m_Mesh));
-        //    m_HalfEdgeRepresentation = new HalfEdgeRepresentation(m_Mesh);
-        //}
-        //m_Mf.sharedMesh = m_Mesh;
     }
 
     public void IterateCatmull(int nbIteration)
@@ -96,6 +66,11 @@ public class HalfEdgeComponent : MonoBehaviour
         GizmosCatmullClark();
     }
 
+    private Vector3 positionAndScale(Vector3 v)
+    {
+        return transform.rotation * Vector3.Scale(v, transform.localScale) + transform.position;
+    }
+
     private void GizmosHalfEdge()
     {
         if (!m_DisplayHalfEdges) return; // Ne pas afficher si m_DisplayHalfEdge non coché
@@ -116,8 +91,8 @@ public class HalfEdgeComponent : MonoBehaviour
                 {
                     if (iHe > m_NMaxHalfEdges - 1) return; // Stop si on a dessiné plus que défini par l'utilisateur
 
-                    Vector3 sourceVertexRelative = transform.rotation * he.sourceVertex.vertex + transform.position;
-                    Vector3 nextVertexRelative = transform.rotation * he.nextEdge.sourceVertex.vertex + transform.position;
+                    Vector3 sourceVertexRelative = positionAndScale(he.sourceVertex.vertex);
+                    Vector3 nextVertexRelative = positionAndScale(he.nextEdge.sourceVertex.vertex);
 
                     Vector3 direction = nextVertexRelative - sourceVertexRelative;
                     Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -154,7 +129,7 @@ public class HalfEdgeComponent : MonoBehaviour
                 {
                     if (nbEdgePoints > m_NMaxEdgePoints) break;
                     Gizmos.color = Color.magenta;
-                    Gizmos.DrawSphere(transform.rotation * EdP.pt + transform.position, .02f);
+                    Gizmos.DrawSphere(positionAndScale(EdP.pt), .02f);
                     nbEdgePoints++;
                 }
             }
@@ -167,7 +142,7 @@ public class HalfEdgeComponent : MonoBehaviour
                 {
                     if (nbFacePoints > m_NMaxFacePoints) break;
                     Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(transform.rotation * FaP + transform.position, .01f);
+                    Gizmos.DrawSphere(positionAndScale(FaP), .01f);
                     nbFacePoints++;
                 }
             }
@@ -180,7 +155,7 @@ public class HalfEdgeComponent : MonoBehaviour
                 {
                     if (nbMidPoints > m_NMaxMidPoints) break;
                     Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(transform.rotation * MidP + transform.position, .01f);
+                    Gizmos.DrawSphere(positionAndScale(MidP), .01f);
                     nbMidPoints++;
                 }
             }

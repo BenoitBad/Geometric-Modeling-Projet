@@ -169,7 +169,7 @@ MonoBehaviour:
   HeMesh:
   - {fileID: 1421309837}
   - {fileID: 1614958435}
-  nbIteration: 4
+  nbIteration: 1
 --- !u!1 &1421309836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7332730076018863886, guid: 7281ab3d3830b0d4d9f58932de91f24c, type: 3}
@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nbIterationCatmull: 0
-  m_DisplayHalfEdges: 0
+  m_DisplayHalfEdges: 1
   m_DisplayHalfEdgeNumber: 0
-  m_NMaxHalfEdges: 0
+  m_NMaxHalfEdges: 2000
   m_DisplayMidPoints: 0
   m_NMaxMidPoints: 0
   m_DisplayEdgePoints: 0

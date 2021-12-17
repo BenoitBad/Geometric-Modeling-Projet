@@ -5,7 +5,6 @@ using UnityEngine;
 public class MeshGenerator
 {
     public delegate Vector3 ComputeVector3FromKxKz(float kX, float kZ);
-    //private MeshFilter m_Mf;
 
     void Awake() // N'a plus d'utilité après retrait de l'héritage de Monobehaviour, gardé pour les exemples de Mesh
     {

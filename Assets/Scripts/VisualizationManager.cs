@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class VisualizationManager : MonoBehaviour
 {
     // S'occupe de charger les scenes de visualisation (en additif), récupère les objets et lance une coroutine pour l'animation.
-    // Voir si besoin d'un menuManager
     private int scene = 0;
 
     public void loadCatmullclark()
