@@ -179,6 +179,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6857560156142470425, guid: 56152a5d3ab40164387aa2ea44767f9c, type: 3}
   m_PrefabInstance: {fileID: 387591200082464831}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1794119638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794119637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6a817d85cc94343862b199388d531d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxAngle: 90
+  m_QuaternionLerpCoef: 1
 --- !u!114 &1794119639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,16 +320,28 @@ PrefabInstance:
       value: Segment
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].z
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].x
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].y
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].z
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}

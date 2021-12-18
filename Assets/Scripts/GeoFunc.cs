@@ -106,12 +106,12 @@ public class GeoFunc
         Vector3 droiteDirecteur = droite.pt1 - droite.pt2;
         float distance = Vector3.Cross(BA, droiteDirecteur).magnitude / droiteDirecteur.magnitude;
 
-        return distance;
+        return Mathf.Abs(distance);
     }
 
     public static float DistancePointPlane(Vector3 point, Plane plan)
     {
         float distance = plan.d - Vector3.Dot(point, plan.normal);
-        return distance;
+        return Mathf.Abs(distance);
     }
 }
