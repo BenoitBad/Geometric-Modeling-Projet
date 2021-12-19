@@ -15,7 +15,7 @@ public class InterSegmentPlane : MonoBehaviour
         {
             intersection.SetActive(true);
             intersection.transform.position = intersectionPos;
-            Debug.Log(intersectionPos);
+            //Debug.Log(intersectionPos);
         } else
         {
             intersection.SetActive(false);

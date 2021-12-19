@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,6 +237,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3106790832592041876, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
   m_PrefabInstance: {fileID: 3106790831849515509}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &889329862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889329861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b0e3f82cf3b534eaae86ba09b5026d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TranslationSpeed: 1
+  m_TranslationDuration: 3
+  m_TranslateVector: {x: 0, y: 2, z: 0}
 --- !u!1 &1268309463 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3393893489613871561, guid: 2a99ebf04dc1ede4fb010223645df4d0, type: 3}
@@ -360,16 +375,28 @@ PrefabInstance:
       value: Segment
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
+      propertyPath: m_Positions.Array.data[0].z
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].x
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].y
-      value: 10
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3106790832592041878, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}
       propertyPath: m_Positions.Array.data[1].z
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66430882e471f1541af3c61ef97d6a20, type: 3}

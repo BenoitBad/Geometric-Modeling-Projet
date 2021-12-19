@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InterSegmentPlane.unity
     guid: d276f0ca50b11f14f8de301c0671a984
+  - enabled: 1
+    path: Assets/Scenes/CatmullClark.unity
+    guid: ebd68644ded20a6469b42090459a5528
+  - enabled: 1
+    path: Assets/Scenes/DistancePoint.unity
+    guid: 7d92e637e652d4c49869ef74f7bcb133
   m_configObjects: {}

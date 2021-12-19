@@ -21,4 +21,6 @@ public class SegmentObject : MonoBehaviour
         seg.pt1 = line.GetPosition(0);
         seg.pt2 = line.GetPosition(1);
     }
+
+
 }
